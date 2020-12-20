@@ -32,7 +32,7 @@ minecraft {
         client {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
+            property 'forge.logging.console.level', 'info'
             mods {
                 itlfts { //TODO how to use artifactName as this?
                     source sourceSets.main
@@ -43,7 +43,7 @@ minecraft {
         server {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
+            property 'forge.logging.console.level', 'info'
             mods {
                 itlfts { //TODO how to use artifactName as this?
                     source sourceSets.main
@@ -54,7 +54,7 @@ minecraft {
         data {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
+            property 'forge.logging.console.level', 'info'
             args '--mod', project.archivesBaseName, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
             mods {
                 itlfts { //TODO how to use artifactName as this?
