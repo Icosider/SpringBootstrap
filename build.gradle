@@ -46,7 +46,7 @@ minecraft {
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
             mods {
-                itlfts {
+                itlfts { //TODO how to use artifactName as this?
                     source sourceSets.main
                 }
             }
@@ -57,7 +57,7 @@ minecraft {
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
             mods {
-                itlfts {
+                itlfts { //TODO how to use artifactName as this?
                     source sourceSets.main
                 }
             }
@@ -69,7 +69,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
             args '--mod', project.archivesBaseName, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
             mods {
-                itlfts {
+                itlfts { //TODO how to use artifactName as this?
                     source sourceSets.main
                 }
             }
