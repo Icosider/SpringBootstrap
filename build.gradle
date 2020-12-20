@@ -106,9 +106,11 @@ afterEvaluate {
 repositories {
     jcenter()
     mavenCentral()
-    mavenLocal()
     maven {
         url "https://oss.sonatype.org/content/groups/public/"
+    }
+    maven {
+        url "https://repository.jboss.org/"
     }
 }
 
