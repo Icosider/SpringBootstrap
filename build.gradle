@@ -104,14 +104,7 @@ afterEvaluate {
 }
 
 repositories {
-    jcenter()
     mavenCentral()
-    maven {
-        url "https://oss.sonatype.org/content/groups/public/"
-    }
-    maven {
-        url "https://repository.jboss.org/"
-    }
 }
 
 dependencies {
