@@ -124,9 +124,6 @@ dependencies {
 
     implementation 'org.springframework:spring-context:5.3.2'
     shadow 'org.springframework:spring-context:5.3.2'
-
-    implementation 'org.switchyard:switchyard-common:2.1.0.Final'
-    shadow 'org.switchyard:switchyard-common:2.1.0.Final'
 }
 
 shadowJar {
