@@ -91,6 +91,15 @@ afterEvaluate {
     }
 }
 
+repositories {
+    jcenter()
+    mavenCentral()
+    mavenLocal()
+    maven {
+        url "https://oss.sonatype.org/content/groups/public/"
+    }
+}
+
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.4-35.1.4'
 
@@ -99,18 +108,17 @@ dependencies {
 
 //    shadow for build || implementation for ide run || todo how to make it better?
 
-    implementation 'org.springframework:spring-beans:5.2.8.RELEASE'
-    shadow 'org.springframework:spring-beans:5.2.8.RELEASE'
-    implementation 'org.springframework:spring-context:5.2.8.RELEASE'
-    shadow 'org.springframework:spring-context:5.2.8.RELEASE'
+    //todo Нужен ли весь бут Может лучше оставить только context и beans?
+    implementation 'org.springframework.boot:spring-boot:2.4.1'
+    shadow 'org.springframework.boot:spring-boot:2.4.1'
 
-    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.13.3'
-    shadow 'org.apache.logging.log4j:log4j-slf4j-impl:2.13.3'
+    implementation 'org.switchyard:switchyard-common:2.1.0.Final'
+    shadow 'org.switchyard:switchyard-common:2.1.0.Final'
 }
 
 shadowJar {
     configurations = [project.configurations.shadow]
-    archiveClassifier.set('all')
+    archiveClassifier.set('')
 }
 
 build.dependsOn shadowJar
