@@ -26,18 +26,6 @@ tasks.withType(JavaCompile).each {
         task.sourceCompatibility = task.targetCompatibility = '1.8'
 }
 
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId = project.group
-            artifactId = project.archivesBaseName
-            version = project.version
-
-            from components.java
-        }
-    }
-}
-
 minecraft {
     mappings channel: 'snapshot', version: '20201028-1.16.3'
     runs {
