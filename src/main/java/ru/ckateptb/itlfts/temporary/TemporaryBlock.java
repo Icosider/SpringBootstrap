@@ -23,6 +23,7 @@ public class TemporaryBlock extends AbstractTemporary {
     private final BlockState previousState;
     private BlockState originalState;
 
+    //TODO Disable physics and keep attachable blocks nearby && save containers
     public TemporaryBlock(World world, BlockPos pos, BlockState state, long duration) {
         super(System.currentTimeMillis() + duration);
         this.world = world;
