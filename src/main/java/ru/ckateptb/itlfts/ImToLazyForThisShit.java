@@ -1,21 +1,16 @@
 package ru.ckateptb.itlfts;
 
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import lombok.Getter;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ru.ckateptb.itlfts.spring.MinecraftForgeSpringContextInitializer;
 
 @Mod("itlfts")
-public class ImToLazyForThisShit extends SpringMod {
-    public ImToLazyForThisShit() {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::on);
-        MinecraftForge.EVENT_BUS.register(this);
-    }
+public class ImToLazyForThisShit {
+    @Getter
+    private static AnnotationConfigApplicationContext context;
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void on(InterModEnqueueEvent event) {
-        this.refresh();
+    public ImToLazyForThisShit() {
+        context = MinecraftForgeSpringContextInitializer.initializeContext(this);
     }
 }
