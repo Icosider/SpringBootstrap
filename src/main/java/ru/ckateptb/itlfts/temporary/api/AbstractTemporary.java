@@ -1,7 +1,7 @@
 package ru.ckateptb.itlfts.temporary.api;
 
 import lombok.Setter;
-import ru.ckateptb.itlfts.ImToLazyForThisShit;
+import ru.ckateptb.itlfts.ImTooLazyForThisShit;
 import ru.ckateptb.itlfts.temporary.TemporaryService;
 
 @Setter
@@ -11,7 +11,7 @@ public abstract class AbstractTemporary implements Temporary {
 
     public AbstractTemporary(long expireTime) {
         this.expireTime = expireTime;
-        this.service = ImToLazyForThisShit.getContext().getBean(TemporaryService.class);
+        this.service = ImTooLazyForThisShit.getContext().getBean(TemporaryService.class);
         this.service.getTemporaries().add(this);
     }
 

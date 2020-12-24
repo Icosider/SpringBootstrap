@@ -6,11 +6,11 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import ru.ckateptb.itlfts.spring.MinecraftForgeSpringContextInitializer;
 
 @Mod("itlfts")
-public class ImToLazyForThisShit {
+public class ImTooLazyForThisShit {
     @Getter
     private static AnnotationConfigApplicationContext context;
 
-    public ImToLazyForThisShit() {
+    public ImTooLazyForThisShit() {
         context = MinecraftForgeSpringContextInitializer.initializeContext(this);
     }
 }
