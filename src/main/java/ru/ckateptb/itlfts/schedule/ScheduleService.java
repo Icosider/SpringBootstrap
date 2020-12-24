@@ -13,7 +13,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-@Log4j2
 @Service
 @NoArgsConstructor
 public class ScheduleService extends AbstractScheduledExecutorService {
