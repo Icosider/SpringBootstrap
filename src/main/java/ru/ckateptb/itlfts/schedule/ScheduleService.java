@@ -2,8 +2,11 @@ package ru.ckateptb.itlfts.schedule;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.springframework.stereotype.Service;
+import ru.ckateptb.itlfts.listeter.Listener;
 import ru.ckateptb.itlfts.schedule.api.AbstractScheduledExecutorService;
 import ru.ckateptb.itlfts.utils.FutureUtils;
 
@@ -15,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 @NoArgsConstructor
-public class ScheduleService extends AbstractScheduledExecutorService {
+public class ScheduleService extends AbstractScheduledExecutorService implements Listener {
     private final List<ScheduleTask> schedulers = new ArrayList<>();
 
     public ScheduleTask schedule(Runnable task, long delay, long rate) {
@@ -59,6 +62,13 @@ public class ScheduleService extends AbstractScheduledExecutorService {
                 runnable.run();
                 ticksLeft = delay + rate;
             }
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void on(TickEvent.ServerTickEvent event) {
+        if (event.phase == TickEvent.Phase.END) {
+            this.tick();
         }
     }
 }
