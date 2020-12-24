@@ -44,15 +44,13 @@ public class ScheduleService extends AbstractScheduledExecutorService implements
     @Getter
     private static class ScheduleTask {
         private final Runnable runnable;
-        private final long delay;
         private final long rate;
 
         private long ticksLeft;
 
         private ScheduleTask(Runnable runnable, long delay, long rate) {
             this.runnable = runnable;
-            this.ticksLeft = delay;
-            this.delay = delay;
+            this.ticksLeft = Math.max(delay, 0);
             this.rate = rate;
         }
 
@@ -60,7 +58,7 @@ public class ScheduleService extends AbstractScheduledExecutorService implements
         private void tick() {
             if (ticksLeft-- == 0) {
                 runnable.run();
-                ticksLeft = delay + rate;
+                ticksLeft = rate;
             }
         }
     }
