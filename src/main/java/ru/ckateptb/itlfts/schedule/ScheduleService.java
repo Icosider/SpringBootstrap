@@ -41,6 +41,13 @@ public class ScheduleService extends AbstractScheduledExecutorService implements
         return null;
     }
 
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void on(TickEvent.ServerTickEvent event) {
+        if (event.phase == TickEvent.Phase.END) {
+            this.tick();
+        }
+    }
+
     @Getter
     private static class ScheduleTask {
         private final Runnable runnable;
@@ -60,13 +67,6 @@ public class ScheduleService extends AbstractScheduledExecutorService implements
                 runnable.run();
                 ticksLeft = rate;
             }
-        }
-    }
-
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void on(TickEvent.ServerTickEvent event) {
-        if (event.phase == TickEvent.Phase.END) {
-            this.tick();
         }
     }
 }

@@ -14,8 +14,8 @@ public class TemporaryBlock extends AbstractTemporary {
     private final Location location;
     private final BlockState state;
     private final BlockState previousState;
-    private BlockState originalState;
     private final TemporaryBlockService temporaryBlockService = ImTooLazyForThisShit.getContext().getBean(TemporaryBlockService.class);
+    private BlockState originalState;
 
     public TemporaryBlock(Location location, Block block, long duration) {
         this(location, block.getDefaultState(), duration);

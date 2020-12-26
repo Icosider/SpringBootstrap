@@ -18,7 +18,7 @@ public abstract class AbstractTemporary implements Temporary {
     @Override
     public void process() {
         if (System.currentTimeMillis() < getExpireTime()) onProcess();
-        else revert() ;
+        else revert();
     }
 
     @Override

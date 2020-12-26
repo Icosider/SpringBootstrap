@@ -44,12 +44,12 @@ public class Location {
         return new BlockPos(x, y, z);
     }
 
-    public void setBlockState(BlockState blockState) {
-        world.setBlockState(new BlockPos(x, y, z), blockState);
-    }
-
     public BlockState getBlockState() {
         return world.getBlockState(new BlockPos(x, y, z));
+    }
+
+    public void setBlockState(BlockState blockState) {
+        world.setBlockState(new BlockPos(x, y, z), blockState);
     }
 
     public Location withX(double x) {

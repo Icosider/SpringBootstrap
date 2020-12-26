@@ -13,6 +13,7 @@ public interface Temporary {
 
     /**
      * Возвращает исходное положение текущего объекта
+     *
      * @see AbstractTemporary#revert()
      */
     void revert();
