@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "ru.ckateptb.itlfts.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "itlfts.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

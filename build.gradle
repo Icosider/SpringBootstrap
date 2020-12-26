@@ -3,10 +3,12 @@ buildscript {
         maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
         mavenCentral()
+        maven { url = 'https://dist.creeper.host/Sponge/maven' }
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
         classpath group: 'com.github.jengelman.gradle.plugins', name: 'shadow', version: '5.1.0'
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
 
@@ -15,6 +17,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'maven-publish'
 apply plugin: 'java'
+apply plugin: 'org.spongepowered.mixin'
 
 group = _group
 archivesBaseName = _name
@@ -41,9 +44,10 @@ publishing {
 minecraft {
     mappings channel: 'snapshot', version: '20201028-1.16.3'
     runs {
-        client = server  = {
+        client = server = {
             properties 'forge.logging.console.level': 'info'
-            arg  '--nogui'
+            arg "-mixin.config=" + project.archivesBaseName + ".mixins.json"
+            arg '--nogui'
             workingDirectory project.file('run').canonicalPath
             source sourceSets.main
         }
@@ -52,6 +56,7 @@ minecraft {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
+mixin { add sourceSets.main, project.archivesBaseName + ".refmap.json" }
 jar {
     manifest {
         attributes([
@@ -61,7 +66,8 @@ jar {
                 "Implementation-Title"    : project.archivesBaseName,
                 "Implementation-Version"  : project.version,
                 "Implementation-Vendor"   : project.archivesBaseName,
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "MixinConfigs"            : project.archivesBaseName + ".mixins.json"
         ])
     }
 }
