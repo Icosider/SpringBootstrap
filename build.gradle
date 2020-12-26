@@ -41,38 +41,11 @@ publishing {
 minecraft {
     mappings channel: 'snapshot', version: '20201028-1.16.3'
     runs {
-        client {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'info'
-            mods {
-                itlfts { //TODO how to use artifactName as this?
-                    source sourceSets.main
-                }
-            }
-        }
-
-        server {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'info'
-            mods {
-                itlfts { //TODO how to use artifactName as this?
-                    source sourceSets.main
-                }
-            }
-        }
-
-        data {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'info'
-            args '--mod', project.archivesBaseName, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-            mods {
-                itlfts { //TODO how to use artifactName as this?
-                    source sourceSets.main
-                }
-            }
+        client = server  = {
+            properties 'forge.logging.console.level': 'info'
+            arg  '--nogui'
+            workingDirectory project.file('run').canonicalPath
+            source sourceSets.main
         }
     }
 }
