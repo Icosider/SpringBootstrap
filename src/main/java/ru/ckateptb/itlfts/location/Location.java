@@ -8,6 +8,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.server.ServerWorld;
 import org.springframework.util.Assert;
 
 @Getter
@@ -34,6 +35,10 @@ public class Location {
 
     public World getWorld() {
         return world;
+    }
+
+    public ServerWorld getServerWorld() {
+        return (ServerWorld) world;
     }
 
     public Chunk getChunk() {
