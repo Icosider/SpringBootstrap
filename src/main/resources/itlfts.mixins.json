@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "itlfts.refmap.json",
   "mixins": [
+    "MixinServerPlayNetHandler"
   ],
   "client": [
   ],
