@@ -20,7 +20,7 @@ public class MinecraftForgeSpringContextInitializer {
      * Создает ApplicationContext для указанного мода, применяя к нему bean того самого мода, а так же сканирует
      * и регистрирует бины находящиеся в дочерных пакетах.
      *
-     * @param mod - Класс аннотированный как Mod, который расположен в корневом пакете проэкта
+     * @param mod - Класс аннотированный как Mod, который расположен в корневом пакете проекта
      * @return AnnotationConfigApplicationContext для передаваемого мода
      */
     @SneakyThrows

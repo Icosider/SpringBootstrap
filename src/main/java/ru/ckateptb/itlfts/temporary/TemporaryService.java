@@ -25,6 +25,9 @@ public class TemporaryService implements Listener {
         temporaries.forEach(Temporary::process);
     }
 
+    /**
+     * Вовзращает все временные объекты на исходную позицию
+     */
     public void revertAll() {
         temporaries.forEach(Temporary::revert);
     }
