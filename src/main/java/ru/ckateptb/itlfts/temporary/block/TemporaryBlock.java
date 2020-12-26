@@ -11,7 +11,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 @Getter
 public class TemporaryBlock extends AbstractTemporary {
-
     private final Location location;
     private final BlockState state;
     private final BlockState previousState;
