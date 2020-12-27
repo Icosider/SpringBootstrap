@@ -1,23 +1,21 @@
 buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
+        maven { url = "https://repo.spongepowered.org/maven" }
         jcenter()
-        mavenCentral()
-        maven { url = 'https://dist.creeper.host/Sponge/maven' }
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
-        classpath group: 'com.github.jengelman.gradle.plugins', name: 'shadow', version: '5.1.0'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:3.0.189'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:5.1.0'
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
 
-apply plugin: 'idea'
-apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'com.github.johnrengelman.shadow'
-apply plugin: 'maven-publish'
-apply plugin: 'java'
+apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'java'
+apply plugin: 'idea'
 
 group = _group
 archivesBaseName = _name
@@ -29,34 +27,55 @@ tasks.withType(JavaCompile).each {
         task.sourceCompatibility = task.targetCompatibility = '1.8'
 }
 
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId = project.group
-            artifactId = project.archivesBaseName
-            version = project.version
-
-            from components.java
-        }
-    }
-}
-
 minecraft {
     mappings channel: 'snapshot', version: '20201028-1.16.3'
     runs {
         client = server = {
             properties 'forge.logging.console.level': 'info'
             arg "-mixin.config=" + project.archivesBaseName + ".mixins.json"
-            arg '--nogui'
+            arg "--nogui"
             workingDirectory project.file('run').canonicalPath
             source sourceSets.main
         }
     }
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+configurations {
+    embed
+    compile.extendsFrom(embed)
+}
 
-mixin { add sourceSets.main, project.archivesBaseName + ".refmap.json" }
+shadowJar {
+    configurations = [project.configurations.embed]
+    archiveClassifier.set('')
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.16.4-35.1.4'
+
+    annotationProcessor 'org.spongepowered:mixin:0.8.2:processor'
+
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+    embed 'org.springframework:spring-context:5.3.2'
+}
+
+mixin {
+    add sourceSets.main, project.archivesBaseName + ".refmap.json"
+}
+
+reobf {
+    shadowJar {
+        dependsOn tasks.createMcpToSrg
+        mappings = tasks.createMcpToSrg.outputs.files.singleFile
+    }
+}
+
 jar {
     manifest {
         attributes([
@@ -72,35 +91,6 @@ jar {
     }
 }
 
-jar.finalizedBy('reobfJar')
-
-afterEvaluate {
-    reobf {
-        shadowJar {
-            mappings = tasks.reobfJar.mappings
-        }
-    }
+artifacts {
+    archives tasks.shadowJar
 }
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.4-35.1.4'
-
-    compileOnly 'org.projectlombok:lombok:1.18.12'
-    annotationProcessor 'org.projectlombok:lombok:1.18.12'
-
-//    shadow for build || implementation for ide run || todo how to make it better?
-
-    implementation 'org.springframework:spring-context:5.3.2'
-    shadow 'org.springframework:spring-context:5.3.2'
-}
-
-shadowJar {
-    configurations = [project.configurations.shadow]
-    archiveClassifier.set('')
-}
-
-build.dependsOn shadowJar
