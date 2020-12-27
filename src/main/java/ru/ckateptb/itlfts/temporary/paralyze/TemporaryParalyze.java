@@ -18,11 +18,9 @@ import ru.ckateptb.itlfts.utils.TeleportUtils;
 @Getter
 public class TemporaryParalyze extends AbstractTemporary {
     private final LivingEntity livingEntity;
-
+    private final TemporaryParalyzeService temporaryParalyzeService = ImTooLazyForThisShit.getContext().getBean(TemporaryParalyzeService.class);
     private GameType originalGameMode;
     private ArmorStandEntity armorStandEntity;
-
-    private final TemporaryParalyzeService temporaryParalyzeService = ImTooLazyForThisShit.getContext().getBean(TemporaryParalyzeService.class);
 
     public TemporaryParalyze(LivingEntity livingEntity, long duration) {
         super(System.currentTimeMillis() + duration);
