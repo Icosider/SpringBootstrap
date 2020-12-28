@@ -7,13 +7,11 @@ buildscript {
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:3.0.189'
         classpath 'com.github.jengelman.gradle.plugins:shadow:5.1.0'
-        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
 
 apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'java'
 apply plugin: 'idea'
 
@@ -32,7 +30,6 @@ minecraft {
     runs {
         client = server = {
             properties 'forge.logging.console.level': 'info'
-            arg "-mixin.config=" + project.archivesBaseName + ".mixins.json"
             arg "--nogui"
             workingDirectory project.file('run').canonicalPath
             source sourceSets.main
@@ -57,16 +54,10 @@ repositories {
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.4-35.1.4'
 
-    annotationProcessor 'org.spongepowered:mixin:0.8.2:processor'
-
     compileOnly 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
 
     embed 'org.springframework:spring-context:5.3.2'
-}
-
-mixin {
-    add sourceSets.main, project.archivesBaseName + ".refmap.json"
 }
 
 reobf {
@@ -85,8 +76,7 @@ jar {
                 "Implementation-Title"    : project.archivesBaseName,
                 "Implementation-Version"  : project.version,
                 "Implementation-Vendor"   : project.archivesBaseName,
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                "MixinConfigs"            : project.archivesBaseName + ".mixins.json"
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
 }

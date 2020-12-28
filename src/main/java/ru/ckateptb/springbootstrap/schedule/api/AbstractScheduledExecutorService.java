@@ -1,4 +1,4 @@
-package ru.ckateptb.itlfts.schedule.api;
+package ru.ckateptb.springbootstrap.schedule.api;
 
 import org.apache.commons.lang3.NotImplementedException;
 

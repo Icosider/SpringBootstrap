@@ -1,4 +1,4 @@
-package ru.ckateptb.itlfts.schedule;
+package ru.ckateptb.springbootstrap.schedule;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -6,9 +6,8 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.springframework.stereotype.Service;
-import ru.ckateptb.itlfts.listeter.Listener;
-import ru.ckateptb.itlfts.schedule.api.AbstractScheduledExecutorService;
-import ru.ckateptb.itlfts.utils.FutureUtils;
+import ru.ckateptb.springbootstrap.listeter.Listener;
+import ru.ckateptb.springbootstrap.schedule.api.AbstractScheduledExecutorService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,9 @@ public class ScheduleService extends AbstractScheduledExecutorService implements
     private final List<ScheduleTask> schedulers = new ArrayList<>();
 
     public ScheduleTask schedule(Runnable task, long delay, long rate) {
-        return FutureUtils.consume(new ScheduleTask(task, delay, rate), schedulers::add);
+        ScheduleTask scheduleTask = new ScheduleTask(task, delay, rate);
+        schedulers.add(scheduleTask);
+        return scheduleTask;
     }
 
     public boolean remove(ScheduleTask task) {

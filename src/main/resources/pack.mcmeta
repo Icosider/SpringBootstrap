@@ -1,7 +1,6 @@
 {
     "pack": {
-        "description": "itlfts resources",
-        "pack_format": 6,
-        "_comment": "todo"
+        "description": "springbootstrap resources",
+        "pack_format": 6
     }
 }
