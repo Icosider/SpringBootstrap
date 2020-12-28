@@ -6,7 +6,8 @@ One of the main features of the Spring framework is the IoC (Inversion of Contro
 
 It makes our development easier, faster and prettier, why don't we use this when developing mods?
 
-###### Implemented for 1.16.4, should work on 1.14 and higher
+# [Download](https://gitlab.com/minecraftforge/springbootstrap/-/pipelines)
+> Implemented for 1.16.4, should work on 1.14 and higher
 
 ## Table of Contents
 
@@ -104,7 +105,7 @@ Distributed under the WTFPL2. See the [LICENSE](https://gitlab.com/minecraftforg
 
 ## Setup
 
-To set up the SpringBootstrap development environment you must clone the repo and initialize the submodule. 
+To set up the SpringBootstrap development environment you must clone the repo. 
 
 ```bash
 git clone https://gitlab.com/minecraftforge/springbootstrap.git
