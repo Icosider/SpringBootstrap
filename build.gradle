@@ -1,7 +1,6 @@
 buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
-        maven { url = "https://repo.spongepowered.org/maven" }
         jcenter()
     }
     dependencies {
@@ -12,6 +11,7 @@ buildscript {
 
 apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'maven-publish'
 apply plugin: 'java'
 apply plugin: 'idea'
 
@@ -83,4 +83,15 @@ jar {
 
 artifacts {
     archives tasks.shadowJar
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = project.group
+            artifactId = project.archivesBaseName
+            version = project.version
+            from components.java
+        }
+    }
 }
