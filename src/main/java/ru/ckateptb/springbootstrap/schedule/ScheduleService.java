@@ -21,7 +21,7 @@ public class ScheduleService extends AbstractScheduledExecutorService implements
     private final List<ScheduleTask> schedulers = new ArrayList<>();
 
     public ScheduleTask schedule(Runnable task, long delay, long rate) {
-        ScheduleTask scheduleTask = new ScheduleTask(task, delay, rate);
+        ScheduleTask scheduleTask = new ScheduleTask(this, task, delay, rate);
         schedulers.add(scheduleTask);
         return scheduleTask;
     }
@@ -51,12 +51,14 @@ public class ScheduleService extends AbstractScheduledExecutorService implements
 
     @Getter
     private static class ScheduleTask {
+        private final ScheduleService service;
         private final Runnable runnable;
         private final long rate;
 
         private long ticksLeft;
 
-        private ScheduleTask(Runnable runnable, long delay, long rate) {
+        private ScheduleTask(ScheduleService service, Runnable runnable, long delay, long rate) {
+            this.service = service;
             this.runnable = runnable;
             this.ticksLeft = Math.max(delay, 0);
             this.rate = rate;
@@ -66,7 +68,8 @@ public class ScheduleService extends AbstractScheduledExecutorService implements
         private void tick() {
             if (ticksLeft-- == 0) {
                 runnable.run();
-                ticksLeft = rate;
+                if (rate <= 0) service.remove(this);
+                else ticksLeft = rate;
             }
         }
     }
