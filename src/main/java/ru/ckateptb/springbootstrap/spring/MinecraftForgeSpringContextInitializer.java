@@ -11,11 +11,8 @@ import org.apache.http.util.Asserts;
 import org.objectweb.asm.Type;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import ru.ckateptb.springbootstrap.spring.mod.SpringContextHolder;
 
 import java.lang.reflect.Field;
@@ -70,19 +67,14 @@ public class MinecraftForgeSpringContextInitializer {
                     }
                 })
                 .filter(Objects::nonNull)
-                //START - TODO I don't like this piece of code, it could be made better!
-                .filter(cl -> cl.isAnnotationPresent(Component.class)
-                        || cl.isAnnotationPresent(Service.class) || cl.isAnnotationPresent(Repository.class)
-                        || cl.isAnnotationPresent(Controller.class) || cl.isAnnotationPresent(Configuration.class)
-                )
-                //END
+                .filter(cl -> AnnotatedElementUtils.isAnnotated(cl, Component.class))
                 .collect(Collectors.toSet());
         log.info("Spring Scan completed successfully ({} beans)!", classes.size());
         classesMultimap.putAll(holder, classes);
     }
 
     public static void initialize() {
-        if(initialized) return;
+        if (initialized) return;
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
         context.register(classesMultimap.values().toArray(new Class<?>[0]));
