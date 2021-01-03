@@ -302,7 +302,7 @@ Now let's look at these annotations
    
    Well, the situation repeated itself, we again got the result we needed by writing an order of magnitude fewer lines.
    
-And of course, the class that this service should handle, in our case, this is the class of our mod:
+Of course, the class of this service should handle, in our case, this is the class of our mod:
 
 ```java
 @Mod("mymod")
