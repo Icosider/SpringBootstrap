@@ -130,14 +130,14 @@ gradlew build
 ## Gradle
 
 Мы храним наш maven репозиторий на
-[github](https://github.com/CKATEPTb/repo/tree/minecraftforge),
+[gitlab](https://gitlab.com/minecraftforge/springbootstrap),
 чтобы использовать эти сборки в своем проекте, используйте следующий
 код в build.gradle
 
 ```gradle
 repositories {
     mavenCentral()
-    maven { url 'http://raw.github.com/CKATEPTb/repo/minecraftforge' }
+    maven { url 'https://gitlab.com/api/v4/projects/23209488/packages/maven' }
 }
 
 dependencies {
@@ -145,7 +145,7 @@ dependencies {
 }
 ```
 
-Просто замените `[VERSION]` на [последнюю версию](https://github.com/CKATEPTb/repo/tree/minecraftforge/ru/ckateptb/springbootstrap)
+Просто замените `[VERSION]` на [последнюю версию](https://gitlab.com/minecraftforge/springbootstrap/-/blob/master/gradle.properties#L2)
 
 ## Что это такое
 

@@ -130,14 +130,14 @@ the resulting `.jar` files will be placed in` build/libs/`.
 ## Gradle
 
 We keep our maven repository at
-[github](https://github.com/CKATEPTb/repo/tree/minecraftforge),
+[gitlab](https://gitlab.com/minecraftforge/springbootstrap),
 to use these assemblies in your project use the following
 code in `build.gradle`
 
 ```gradle
 repositories {
     mavenCentral()
-    maven {url 'http://raw.github.com/CKATEPTb/repo/minecraftforge'}
+    maven { url 'https://gitlab.com/api/v4/projects/23209488/packages/maven' }
 }
 
 dependencies {
@@ -145,7 +145,7 @@ dependencies {
 }
 ```
 
-Just replace `[VERSION]` with [latest version](https://github.com/CKATEPTb/repo/tree/minecraftforge/en/ckateptb/springbootstrap)
+Just replace `[VERSION]` with [latest version](https://gitlab.com/minecraftforge/springbootstrap/-/blob/master/gradle.properties#L2)
 
 ## What it is
 
