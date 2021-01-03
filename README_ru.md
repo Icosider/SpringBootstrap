@@ -415,7 +415,7 @@ public class MyConfiguration {
 
     @Bean("nether")
     public World getNetherWorld() {
-        return normal;
+        return nether;
     }
 
     @Bean("end")
