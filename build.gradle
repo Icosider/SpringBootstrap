@@ -87,26 +87,23 @@ artifacts {
 
 publishing {
     publications {
-        maven(MavenPublication) {
+        library(MavenPublication) {
             groupId = project.group
             artifactId = project.archivesBaseName
             version = project.version
             from components.java
         }
     }
-}
-
-repositories {
-    maven {
-        url "https://gitlab.com/api/v4/projects/" + System.getenv("CI_PROJECT_ID") + "/packages/maven"
-
-        credentials(HttpHeaderCredentials) {
-            name = "Job-Token"
-            value = System.getenv("CI_JOB_TOKEN")
-        }
-
-        authentication {
-            header(HttpHeaderAuthentication)
+    repositories {
+        maven {
+            url "https://gitlab.com/api/v4/projects/" + System.getenv("CI_PROJECT_ID") + "/packages/maven"
+            credentials(HttpHeaderCredentials) {
+                name = "Job-Token"
+                value = System.getenv("CI_JOB_TOKEN")
+            }
+            authentication {
+                header(HttpHeaderAuthentication)
+            }
         }
     }
 }
