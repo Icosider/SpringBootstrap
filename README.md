@@ -141,11 +141,11 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'ru.ckateptb: springbootstrap: [VERSION]'
+    compileOnly 'ru.ckateptb:springbootstrap:[VERSION]'
 }
 ```
 
-Just replace `[VERSION]` with [latest version](https://gitlab.com/minecraftforge/springbootstrap/-/blob/master/gradle.properties#L2)
+Just replace `[VERSION]` with [latest version](https://gitlab.com/minecraftforge/springbootstrap/-/blob/master/gradle.properties#L2) or `+`
 
 ## What it is
 

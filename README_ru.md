@@ -145,7 +145,7 @@ dependencies {
 }
 ```
 
-Просто замените `[VERSION]` на [последнюю версию](https://gitlab.com/minecraftforge/springbootstrap/-/blob/master/gradle.properties#L2)
+Просто замените `[VERSION]` на [последнюю версию](https://gitlab.com/minecraftforge/springbootstrap/-/blob/master/gradle.properties#L2) или `+`
 
 ## Что это такое
 
