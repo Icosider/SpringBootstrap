@@ -36,8 +36,6 @@ public class ScheduleService extends AbstractScheduledExecutorService implements
 
     @Override
     public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit) {
-        initialDelay = unit.toSeconds(initialDelay) / 50;
-        period = unit.toSeconds(period) / 50;
         schedule(command, initialDelay, period);
         return null;
     }
