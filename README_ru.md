@@ -58,21 +58,10 @@ public class MyMod extends SpringMod {
 тогда основной класс вашего мода будет выглядеть так
 
 ```java
-public class MyMod implements SpringContextHolder {
-    private AnnotationConfigApplicationContext context;
-
+@Mod("mymod")
+public class MyMod extends AbstractSpringContextHolder {
     public MyMod() {
         MinecraftForgeSpringContextInitializer.register(this, "com.example.mymodpackage");
-    }
-
-    @Override
-    public AnnotationConfigApplicationContext getContext() {
-        return context;
-    }
-
-    @Override
-    public void setContext(AnnotationConfigApplicationContext ctx) {
-        if (context == null) context = ctx;
     }
 }
 ```

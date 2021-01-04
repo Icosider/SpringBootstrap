@@ -58,21 +58,10 @@ you need to manually specify the parent package for class scanning,
 then the main class of your mod will look like this
 
 ```java
-public class MyMod implements SpringContextHolder {
-    private AnnotationConfigApplicationContext context;
-
+@Mod("mymod")
+public class MyMod extends AbstractSpringContextHolder {
     public MyMod() {
         MinecraftForgeSpringContextInitializer.register(this, "com.example.mymodpackage");
-    }
-
-    @Override
-    public AnnotationConfigApplicationContext getContext() {
-        return context;
-    }
-
-    @Override
-    public void setContext(AnnotationConfigApplicationContext ctx) {
-        if(context == null) context = ctx;
     }
 }
 ```
@@ -253,8 +242,8 @@ If your project still doesn't have Lombok for some reason, then let's add it rig
 ```gradle
 // Add Lombok to our project
 dependencies {
-    compileOnly 'org.projectlombok: lombok: 1.18.12'
-    annotationProcessor 'org.projectlombok: lombok: 1.18.12'
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
 }
 ```
 
@@ -308,7 +297,7 @@ Of course, the class of this service should handle, in our case, this is the cla
 @Mod("mymod")
 public class MyMod extends SpringMod {
     public MyMod() {
-        getContext(). getBean(MyService.class) .usefulWork();
+        getContext().getBean(MyService.class).usefulWork();
     }
 }
 ```
@@ -324,7 +313,7 @@ Logically:
    * `@Repository` - reads / writes information(for example, from / to a file)
    * `@Controler` - controls requests
    * `@Configuration` - configuring our application
-   * `@Component` - well ... If all else fails, then use this annotation
+   * `@Component` - well... If all else fails, then use this annotation
 
 But in fact, you implement all this yourself, so you can mark the class as you like.
 
@@ -365,12 +354,12 @@ Let's set ourselves the task of adding a server to our container, here's how we 
 @Mod("mymod")
 public class MyMod extends SpringMod {
     public MyMod() {
-        FMLJavaModLoadingContext.get(). GetModEventBus(). AddListener(this :: onServerStartingEvent);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onServerStartingEvent);
     }
 
     public void onServerStartingEvent(FMLServerStartingEvent event) {
         MinecraftServer server = event.getServer();
-        getContext(). getBeanFactory(). registerResolvableDependency(server.getClass(), server);
+        getContext().getBeanFactory().registerResolvableDependency(server.getClass(), server);
     }
 }
 ```
@@ -395,7 +384,7 @@ class MyMod extends SpringMod {
 }
 ```
 
-Now we can use `MyMod.getInstance(). GetContext(). GetBean(OtherMod.class)`,
+Now we can use `MyMod.getInstance().GetContext().GetBean(OtherMod.class)`,
 where `OtherMod.class` is the class of the object we would like to receive.
 
 ## How to distinguish several objects of the same class
@@ -452,7 +441,7 @@ registering events is not static, as Forge suggests.
 @NoArgsConstructor
 public class MyService implements Listener {
     public void tick() {
-        // ...
+        //...
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -482,7 +471,7 @@ public class MyService {
     // will be executed every second
     @Schedule(initialDelay = 40, fixedRate = 20)
     public void processEverySecondWithTwoSecondInitialDelay() {
-        // ...
+        //...
     }
 }
 ```
