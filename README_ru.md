@@ -453,6 +453,25 @@ public class MyService implements Listener {
 }
 ```
 
+## Как зарегистрировать команду в компоненте
+
+Помимо того, что вы можете сделать это, как заявлено в Forge, вы можете сделать это
+расширив ваш компонент интерфейсом Command. Избавив себя от прослушивания событие регистрации.
+
+```java
+@Component
+@NoArgsConstructor
+public class MyCommand implements Command {
+    public void register(CommandDispatcher<CommandSource> source) {
+        LiteralArgumentBuilder<CommandSource> myCommand = Commands.literal("myCommand");
+        myCommand.executes(context -> {
+            //...
+        });
+        source.register(myCommand);        
+    }
+}
+```
+
 ## Как использовать Scheduler о котором говорилось в особенностях
 
 Выполнять какой-то алгоритм с определенным интервалом или с задержкой - классика!
@@ -467,8 +486,7 @@ public class MyService implements Listener {
 @NoArgsConstructor
 public class MyService {
     // (20 тиков = 1 секунда)
-    // Данный метод спустя 2 секунды 
-    // будет выполнен каждую секунду
+    // Данный метод будет выполнен каждую секунду спустя 2 секунды 
     @Schedule(initialDelay = 40, fixedRate = 20)
     public void processEverySecondWithTwoSecondInitialDelay() {
         //...

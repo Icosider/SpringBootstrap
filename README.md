@@ -453,6 +453,25 @@ public class MyService implements Listener {
 }
 ```
 
+## How to register a command in a component
+
+Besides the fact that you can do this as stated in Forge, you can do this
+extending your component with the Command interface. By sparing yourself of listening to the registration event.
+
+```java
+@Component
+@NoArgsConstructor
+public class MyCommand implements Command {
+     public void register(CommandDispatcher<CommandSource> source) {
+         LiteralArgumentBuilder<CommandSource> myCommand = Commands.literal("myCommand");
+         myCommand.executes(context -> {
+             //...
+         });
+        source.register(myCommand);
+     }
+}
+```
+
 ## How to use the Scheduler mentioned in the features
 
 It is a classic to execute some algorithm with a certain interval or with a delay!
@@ -467,8 +486,7 @@ will only work before the first execution.
 @NoArgsConstructor
 public class MyService {
     // (20 ticks = 1 second)
-    // This method after 2 seconds
-    // will be executed every second
+    // This method will be executed every second after 2 seconds
     @Schedule(initialDelay = 40, fixedRate = 20)
     public void processEverySecondWithTwoSecondInitialDelay() {
         //...
