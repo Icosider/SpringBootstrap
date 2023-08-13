@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[28,)"
+loaderVersion="[43,)"
 license="WTFPL2"
 issueTrackerURL="https://gitlab.com/itlfts/im-too-lazy-for-this-shit/issues/"
 [[mods]]
@@ -14,14 +14,8 @@ this is a library mod, for other mods that
 allows use them Spring Context
 '''
 [[dependencies.springbootstrap]]
-    modId="forge"
-    mandatory=true
-    versionRange="[28,)"
-    ordering="NONE"
-    side="BOTH"
-[[dependencies.springbootstrap]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.14.4,1.17)"
+    versionRange="[1.19.2]"
     ordering="NONE"
     side="BOTH"

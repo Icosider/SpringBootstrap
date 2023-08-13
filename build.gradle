@@ -1,17 +1,16 @@
 buildscript {
     repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        jcenter()
+        maven {
+            name = "forge"
+            url = "https://maven.minecraftforge.net/"
+        }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:3.0.189'
-        classpath 'com.github.jengelman.gradle.plugins:shadow:5.1.0'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.+', changing: true
     }
 }
 
-apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'maven-publish'
 apply plugin: 'java'
 apply plugin: 'idea'
 
@@ -19,14 +18,11 @@ group = _group
 archivesBaseName = _name
 version = _version
 
-tasks.withType(JavaCompile).each {
-    task ->
-        task.options.encoding = 'UTF-8'
-        task.sourceCompatibility = task.targetCompatibility = '1.8'
-}
+jarJar.enable()
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
-    mappings channel: 'snapshot', version: '20201028-1.16.3'
+    mappings channel: 'official', version: '1.19.2'
     runs {
         client = server = {
             properties 'forge.logging.console.level': 'info'
@@ -37,34 +33,23 @@ minecraft {
     }
 }
 
-configurations {
-    embed
-    compile.extendsFrom(embed)
-}
-
-shadowJar {
-    configurations = [project.configurations.embed]
-    archiveClassifier.set('')
-}
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.4-35.1.4'
+    minecraft 'net.minecraftforge:forge:1.19.2-43.2.21'
 
-    compileOnly 'org.projectlombok:lombok:1.18.12'
-    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    compileOnly 'org.projectlombok:lombok:1.18.28'
+    annotationProcessor 'org.projectlombok:lombok:1.18.28'
 
-    embed 'org.springframework:spring-context:5.3.2'
-}
+    minecraftLibrary(jarJar('org.springframework:spring-context:[5.3.2]'))
 
-reobf {
-    shadowJar {
-        dependsOn tasks.createMcpToSrg
-        mappings = tasks.createMcpToSrg.outputs.files.singleFile
-    }
+    jarJar('org.springframework:spring-aop:[5.3.2]') {}
+    jarJar('org.springframework:spring-beans:[5.3.2]') {}
+    jarJar('org.springframework:spring-core:[5.3.2]') {}
+    jarJar('org.springframework:spring-expression:[5.3.2]') {}
+    jarJar('org.springframework:spring-jcl:[5.3.2]') {}
 }
 
 jar {
@@ -79,31 +64,9 @@ jar {
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
+    finalizedBy('reobfJar')
 }
 
-artifacts {
-    archives tasks.shadowJar
-}
-
-publishing {
-    publications {
-        library(MavenPublication) {
-            groupId = project.group
-            artifactId = project.archivesBaseName
-            version = project.version
-            from components.java
-        }
-    }
-    repositories {
-        maven {
-            url "https://gitlab.com/api/v4/projects/" + System.getenv("CI_PROJECT_ID") + "/packages/maven"
-            credentials(HttpHeaderCredentials) {
-                name = "Job-Token"
-                value = System.getenv("CI_JOB_TOKEN")
-            }
-            authentication {
-                header(HttpHeaderAuthentication)
-            }
-        }
-    }
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
 }

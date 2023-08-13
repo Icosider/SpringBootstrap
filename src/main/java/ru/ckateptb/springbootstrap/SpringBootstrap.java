@@ -2,9 +2,9 @@ package ru.ckateptb.springbootstrap;
 
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import ru.ckateptb.springbootstrap.spring.MinecraftForgeSpringContextInitializer;
 import ru.ckateptb.springbootstrap.spring.mod.SpringMod;
@@ -20,7 +20,7 @@ public class SpringBootstrap extends SpringMod {
         MinecraftForgeSpringContextInitializer.initialize();
     }
 
-    public void onServerStartingEvent(FMLServerStartingEvent event) {
+    public void onServerStartingEvent(ServerStartingEvent event) {
         MinecraftServer server = event.getServer();
         getContext().getBeanFactory().registerResolvableDependency(server.getClass(), server);
     }
